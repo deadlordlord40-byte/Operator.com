@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>RootShoot Admin | Dashboard</title>
+    <title>RootShoot Admin | Secure Dashboard</title>
     <!-- Add this in <head> section -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍃</text></svg>" type="image/svg+xml">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔐</text></svg>" type="image/svg+xml">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
@@ -39,7 +39,242 @@
             min-height: 100vh;
             overflow-x: hidden;
         }
-        
+
+        /* ========== LOGIN SCREEN ========== */
+        .login-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a0a0a, #1a1a2e);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease;
+        }
+
+        .login-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 30px;
+        }
+
+        .login-card {
+            background: rgba(22, 33, 62, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 24px;
+            padding: 40px 35px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .login-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #4361ee, #4cc9f0, #f72585);
+            border-radius: 24px 24px 0 0;
+        }
+
+        .login-logo {
+            margin-bottom: 30px;
+        }
+
+        .login-logo-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .login-logo h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 5px;
+        }
+
+        .login-logo p {
+            color: var(--text-secondary);
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+
+        .login-form {
+            margin-top: 30px;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 25px;
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 18px 20px 18px 55px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            color: var(--text);
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 18px;
+            z-index: 2;
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border: none;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(67, 97, 238, 0.3);
+        }
+
+        .login-btn:active {
+            transform: translateY(0);
+        }
+
+        .login-footer {
+            margin-top: 25px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .login-footer p {
+            color: var(--text-secondary);
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .login-footer i {
+            color: var(--primary);
+        }
+
+        .login-error {
+            color: var(--danger);
+            font-size: 14px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .login-error.show {
+            opacity: 1;
+        }
+
+        /* Loading Animation */
+        .login-loading {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Particles Background */
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        /* Shake animation for wrong password */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+            20%, 40%, 60%, 80% { transform: translateX(5px); }
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        /* Fade out login */
+        .login-screen.fade-out {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* ========== MAIN DASHBOARD ========== */
         /* Mobile Menu Toggle */
         .menu-toggle {
             display: none;
@@ -145,6 +380,12 @@
             margin-left: 260px;
             padding: 20px;
             transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
         }
         
         /* Header */
@@ -735,9 +976,86 @@
                 margin: 10px auto;
             }
         }
+
+        /* Logout Button */
+        .logout-btn {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background: rgba(67, 97, 238, 0.2);
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            padding: 10px 15px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            z-index: 1001;
+        }
+
+        .logout-btn:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
+    <!-- Login Screen -->
+    <div class="login-screen" id="loginScreen">
+        <!-- Particles Background -->
+        <div id="particles-js"></div>
+        
+        <div class="login-container">
+            <div class="login-card">
+                <div class="login-logo">
+                    <div class="login-logo-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h1>RootShoot Admin</h1>
+                    <p>SECURE ACCESS PANEL</p>
+                </div>
+                
+                <div class="login-form">
+                    <div class="input-group">
+                        <i class="fas fa-lock input-icon"></i>
+                        <input type="password" id="passwordInput" class="login-input" placeholder="Enter Admin Password" autocomplete="off">
+                        <button type="button" class="password-toggle" id="passwordToggle">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="login-error" id="loginError">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Incorrect password. Please try again.</span>
+                    </div>
+                    
+                    <button class="login-btn" id="loginBtn" onclick="checkPassword()">
+                        <span>Unlock Dashboard</span>
+                        <div class="login-loading" id="loginLoading"></div>
+                    </button>
+                </div>
+                
+                <div class="login-footer">
+                    <p>
+                        <i class="fas fa-shield-alt"></i>
+                        Secure Admin Access
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Dashboard (Initially Hidden) -->
+    <button class="logout-btn" id="logoutBtn" style="display: none;">
+        <i class="fas fa-sign-out-alt"></i>
+        Logout
+    </button>
+    
     <!-- Mobile Menu Toggle -->
     <button class="menu-toggle" id="menuToggle">
         <i class="fas fa-bars"></i>
@@ -750,8 +1068,8 @@
                 <i class="fas fa-shield-alt"></i>
             </div>
             <div class="logo-text">
-                <h2>LuxeVault</h2>
-                <p>Admin Dashboard</p>
+                <h2>RootShoot Admin</h2>
+                <p>Secure Dashboard</p>
             </div>
         </div>
         
@@ -774,12 +1092,12 @@
     </div>
     
     <!-- Main Content -->
-    <div class="main-content">
+    <div class="main-content" id="mainContent" style="display: none;">
         <!-- Header -->
         <div class="header">
             <div class="header-title">
                 <h1>Admin Dashboard</h1>
-                <p>Monitor and manage your luxury store</p>
+                <p>Monitor and manage your store securely</p>
             </div>
             
             <div class="header-stats">
@@ -1061,7 +1379,177 @@
         </div>
     </div>
 
+    <!-- Particles.js Library -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+
     <script>
+        // ========== PASSWORD PROTECTION ==========
+        const CORRECT_PASSWORD = "II9009II";
+        let isAuthenticated = false;
+
+        // Initialize particles background
+        document.addEventListener('DOMContentLoaded', function() {
+            if (typeof particlesJS !== 'undefined') {
+                particlesJS('particles-js', {
+                    particles: {
+                        number: { value: 80, density: { enable: true, value_area: 800 } },
+                        color: { value: "#4361ee" },
+                        shape: { type: "circle" },
+                        opacity: { value: 0.5, random: true },
+                        size: { value: 3, random: true },
+                        line_linked: {
+                            enable: true,
+                            distance: 150,
+                            color: "#4cc9f0",
+                            opacity: 0.2,
+                            width: 1
+                        },
+                        move: {
+                            enable: true,
+                            speed: 2,
+                            direction: "none",
+                            random: true,
+                            straight: false,
+                            out_mode: "out",
+                            bounce: false
+                        }
+                    },
+                    interactivity: {
+                        detect_on: "canvas",
+                        events: {
+                            onhover: { enable: true, mode: "repulse" },
+                            onclick: { enable: true, mode: "push" }
+                        }
+                    }
+                });
+            }
+
+            // Focus password input
+            document.getElementById('passwordInput').focus();
+
+            // Enter key to submit
+            document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    checkPassword();
+                }
+            });
+
+            // Password toggle
+            document.getElementById('passwordToggle').addEventListener('click', function() {
+                const input = document.getElementById('passwordInput');
+                const icon = this.querySelector('i');
+                
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    icon.classList.remove('fa-eye');
+                    icon.classList.add('fa-eye-slash');
+                } else {
+                    input.type = 'password';
+                    icon.classList.remove('fa-eye-slash');
+                    icon.classList.add('fa-eye');
+                }
+            });
+
+            // Logout button
+            document.getElementById('logoutBtn').addEventListener('click', logout);
+        });
+
+        function checkPassword() {
+            const passwordInput = document.getElementById('passwordInput');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginLoading = document.getElementById('loginLoading');
+            const loginError = document.getElementById('loginError');
+            const loginCard = document.querySelector('.login-card');
+            
+            const enteredPassword = passwordInput.value.trim();
+            
+            if (!enteredPassword) {
+                showError("Please enter password");
+                return;
+            }
+            
+            // Show loading
+            loginBtn.disabled = true;
+            loginLoading.style.display = 'block';
+            loginBtn.querySelector('span').textContent = 'Verifying...';
+            
+            // Simulate verification delay
+            setTimeout(() => {
+                if (enteredPassword === CORRECT_PASSWORD) {
+                    // Success
+                    isAuthenticated = true;
+                    loginSuccess();
+                } else {
+                    // Wrong password
+                    showError("Incorrect password");
+                    passwordInput.value = '';
+                    loginCard.classList.add('shake');
+                    
+                    setTimeout(() => {
+                        loginCard.classList.remove('shake');
+                    }, 500);
+                    
+                    passwordInput.focus();
+                }
+                
+                // Reset button
+                loginBtn.disabled = false;
+                loginLoading.style.display = 'none';
+                loginBtn.querySelector('span').textContent = 'Unlock Dashboard';
+            }, 800);
+        }
+
+        function showError(message) {
+            const loginError = document.getElementById('loginError');
+            loginError.querySelector('span').textContent = message;
+            loginError.classList.add('show');
+            
+            setTimeout(() => {
+                loginError.classList.remove('show');
+            }, 3000);
+        }
+
+        function loginSuccess() {
+            const loginScreen = document.getElementById('loginScreen');
+            const mainContent = document.getElementById('mainContent');
+            const logoutBtn = document.getElementById('logoutBtn');
+            
+            // Fade out login screen
+            loginScreen.classList.add('fade-out');
+            
+            // Show main content after delay
+            setTimeout(() => {
+                loginScreen.style.display = 'none';
+                mainContent.style.display = 'block';
+                logoutBtn.style.display = 'flex';
+                
+                // Initialize dashboard
+                initializeDashboard();
+            }, 500);
+        }
+
+        function logout() {
+            isAuthenticated = false;
+            
+            const loginScreen = document.getElementById('loginScreen');
+            const mainContent = document.getElementById('mainContent');
+            const logoutBtn = document.getElementById('logoutBtn');
+            const passwordInput = document.getElementById('passwordInput');
+            
+            // Hide dashboard
+            mainContent.style.display = 'none';
+            logoutBtn.style.display = 'none';
+            
+            // Show login screen
+            loginScreen.style.display = 'flex';
+            setTimeout(() => {
+                loginScreen.classList.remove('fade-out');
+                passwordInput.value = '';
+                passwordInput.focus();
+            }, 50);
+        }
+
+        // ========== DASHBOARD CODE ==========
         // Firebase Configuration
         const firebaseConfig = {
             apiKey: "AIzaSyDXd5OXhBIeK6ZgsGac2WApW6b5ctOP138",
@@ -1072,19 +1560,20 @@
             appId: "1:644099796079:web:6551da1de0a075fbeeb19a"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const db = firebase.firestore();
-        
+        let db;
         let currentMessageId = null;
         let currentOrderId = null;
         let selectedStatus = '';
         let currentOrdersFilter = 'all';
         let currentMessagesFilter = 'all';
-        let deleteType = ''; // 'order' or 'message'
+        let deleteType = '';
         let deleteId = '';
 
-        // Load data on page load
-        document.addEventListener('DOMContentLoaded', function() {
+        function initializeDashboard() {
+            // Initialize Firebase only after login
+            firebase.initializeApp(firebaseConfig);
+            db = firebase.firestore();
+            
             loadDashboardStats();
             loadRecentOrders();
             loadRecentMessages();
@@ -1111,7 +1600,7 @@
                     sidebar.classList.remove('active');
                 }
             });
-        });
+        }
 
         // ========== NAVIGATION ==========
         function showTab(tab) {
